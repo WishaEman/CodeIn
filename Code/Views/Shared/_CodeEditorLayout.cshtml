@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeIN'</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-min/ace.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>  <!-- Ajax API-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: black;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="~/images/CodeIN.png" alt="logo"
+                     style="padding-left: 1rem; height: 60px; width: 150px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Welcome", "UserInterface")">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <button class="btn text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" style="background-color: black;">Switch Module</button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <div class="container">
+                    <li class="button">
+                        <a class="btn btn-danger" href="@Url.Action("Logout", "Home")">Log out</a>
+                    </li>
+                </ul>
+                    </div>
+            </div>
+
+        </div>
+    </nav>
+    <!--Nav Bar end-->
+
+
+    <div class="offcanvas offcanvas-start bg-black" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white mt-3" id="offcanvasScrollingLabel">Click to Switch the Module</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column mt-4">
+            <a href="@Url.Action("CodeEditor", "UserInterface")" class="link-icon" style="margin-bottom: 25px;">
+                <i class="fas fa-code fa-2x"></i>
+                <span class="icon-text">Compiler</span>
+            </a>
+            <a href="@Url.Action("CodeBase", "UserInterface")" class="link-icon" style="margin-bottom: 25px;">
+                <i class="fab fa-github fa-2x"></i>
+                <span class="icon-text">Codebase</span>
+            </a>
+            <a href="@Url.Action("ProblemSolving", "UserInterface")" class="link-icon" style="margin-bottom: 25px;">
+                <i class="fas fa-lightbulb fa-2x"></i>
+                <span class="icon-text">Problem Solving</span>
+            </a>
+        </div>
+
+    </div>
+
+
+
+
+    @RenderBody()
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+<footer class="text-lg-start mt-5" style="background-color:black;">
+    <!-- Copyright -->
+    <div class="text-center p-2 text-secondary" style="background-color: rgba(0, 0, 0, 0.2);">
+        <img src="~/images/CodeIN.png" alt="logo"
+             style="padding-left: 1rem; height: 50px; width: 130px;">
+        © 2023 Copyright:
+        <a class="text-light" href="index.html" style="text-decoration: none;">Website by Shahryar and Wisha</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+
+
+
+</html>

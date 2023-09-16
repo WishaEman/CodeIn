@@ -1,0 +1,159 @@
+﻿@{
+    Layout = "_CodeEditorLayout";
+    var x = "Welcome to the Code Editor";
+    ViewBag.z = "Here you can compile and run your code and see the output";
+}
+  <style>
+        #editor {
+            width: 100%;
+            height: 500px;
+        }
+        #outputEditor {
+            width: 100%;
+            height: 500px;
+        }
+        @@font-face {
+            font-family: 'scp';
+            src: url('scp.ttf');
+        }
+    </style>
+<body>
+
+    <div>
+        <partial name ="_PartialView" model = "x" />
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-2 bg-light text-center">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Language
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-mode = "cpp">C++</a>
+                        <a class="dropdown-item" href="#" data-mode ="python">Python</a>
+                    </div>
+                    <button id="copyButton" type="button" class="btn btn-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg> Copy
+                    </button>
+
+                    <a href=""><button type="button" id ="runCode" class="btn btn-success">Run</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="container" style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+        <div class="input-group" style="width: 250px">
+            <input type="text" class="form-control" id="compileInput" placeholder="Enter input if any.."/>
+        </div>
+    </div>
+    
+     <!------ Spinner ----->
+    <div class="container d-flex justify-content-center mb-2" style="display: none;">
+        <div class="spinner-border text-success" id="loader" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+ 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="editor"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="outputEditor" style="color: white"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/SignalR/dist/browser/signalr.js"></script>
+    <script src="~/js/compilecode.js"></script>
+
+     <script>
+
+        // Ajax
+            
+        //$("#runCode").click(function (event) {
+        //    event.preventDefault();
+        //    executeFile(editor.getValue());
+        //});
+        var res = "Output:\n";
+        //function executeFile(code) {
+        //    $.ajax({
+        //        url: '@Url.Action("Execute", "UserInterface")',
+        //        type: 'POST',
+        //        data: {content: code, lang: language },
+        //        success: function (response) {
+        //              outputEditor.setValue(res);
+        //              outputEditor.insert(res + response);
+        //        },
+        //        error: function () {
+        //            alert("An error occurred while executing the file.");
+        //        }
+        //    });
+        //}
+
+        // initialisation
+
+        var editor = ace.edit("editor");
+        var outputEditor = ace.edit("outputEditor");
+        var language = "cpp";
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/c_cpp");
+        editor.insert("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+        outputEditor.setTheme("ace/theme/monokai");
+        outputEditor.setReadOnly(true);
+        outputEditor.session.setMode("ace/mode/text");
+        outputEditor.insert(res);
+
+        // change mode
+
+
+        // Handle the dropdown item selection
+        $('.dropdown-item').click(function (e) {
+            e.preventDefault();
+            language = $(this).data('mode');
+
+            // Change the mode (language) based on the selected mode
+            switch (language) {
+                case 'python':
+                    editor.getSession().setMode("ace/mode/python"); // Set the Python mode
+                    editor.setValue("print('Hello World')");
+                    break;
+                case 'cpp':
+                    editor.getSession().setMode("ace/mode/c_cpp"); // Set the C++ mode
+                    editor.setValue("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+                    break;
+                default:
+                    editor.getSession().setMode("ace/mode/text"); // Set a default mode if necessary
+                    break;
+            }
+        });
+
+        // Copy Functionality
+
+        var copyButton = document.getElementById("copyButton");
+        copyButton.addEventListener("click", copyToClipboard);
+        function copyToClipboard() {
+            var editor = ace.edit("editor");
+            var text = editor.getValue();
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("Text copied to clipboard");
+                })
+                .catch(function (error) {
+                    alert("Error copying text to clipboard:", error);
+                });
+
+        }
+    </script>
+    
+</body>

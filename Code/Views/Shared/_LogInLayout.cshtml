@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeIN'</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: black;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="~/images/CodeIN.png" alt="logo"
+                     style="padding-left: 1rem; height: 60px; width: 150px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <div class="container">
+                    <li class="button">
+                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</a>
+                    </li>
+            </div>
+            </ul>
+
+        </div>
+        </div>
+    </nav>
+    @RenderBody()
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+   
+</body>
+
+<footer class="text-lg-start" style="background-color:black;">
+    <!-- Copyright -->
+    <div class="text-center p-2 text-secondary" style="background-color: rgba(0, 0, 0, 0.2);">
+        <img src="~/images/CodeIN.png" alt="logo"
+             style="padding-left: 1rem; height: 50px; width: 130px;">
+        © 2023 Copyright:
+        <a class="text-light" href="@Url.Action("Index", "Home")" style="text-decoration: none;">Website by Shahryar and Wisha</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+</html>

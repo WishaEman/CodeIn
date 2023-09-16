@@ -1,0 +1,73 @@
+~1~
+****
+We define subsequence as any subset of an array. We define a subarray as a contiguous subsequence in an array.
+Given an array, find the maximum possible sum among:
+1. all nonempty subarrays.
+2. all nonempty subsequences.
+Print the two values as space-separated integers on one line.
+****
+Complete the maxSubarray function in the editor below.
+maxSubarray has the following parameter(s):
+int arr[n]: an array of integers
+****
+int[2]: the maximum subarray and subsequence sums
+****
+2
+4
+1 2 3 4
+6
+2 -1 2 3 4 -5
+****
+10 10
+10 11
+****
+~1002~
+****
+We define subsequence as any subset of an array. We define a subarray as a contiguous subsequence in an array.
+Given an array, find the maximum possible sum among:
+1. all nonempty subarrays.
+2. all nonempty subsequences.
+Print the two values as space-separated integers on one line.
+****
+Complete the maxSubarray function in the editor below.
+maxSubarray has the following parameter(s):
+int arr[n]: an array of integers
+****
+int[2]: the maximum subarray and subsequence sums
+****
+Sample Input
+2
+4
+1 2 3 4
+6
+2 -1 2 3 4 -5
+****
+Sample Output
+10 10
+10 11
+****
+~1003~
+****
+We define subsequence as any subset of an array. We define a subarray as a contiguous subsequence in an array.
+Given an array, find the maximum possible sum among:
+1. all nonempty subarrays.
+2. all nonempty subsequences.
+Print the two values as space-separated integers on one line.
+****
+Complete the maxSubarray function in the editor below.
+maxSubarray has the following parameter(s):
+int arr[n]: an array of integers
+****
+int[2]: the maximum subarray and subsequence sums
+****
+Sample Input
+2
+4
+1 2 3 4
+6
+2 -1 2 3 4 -5
+****
+Sample Output
+10 10
+10 11
+****

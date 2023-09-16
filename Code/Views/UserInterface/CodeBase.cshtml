@@ -1,0 +1,91 @@
+﻿@model List<Code.Codebase>
+@{
+    Layout = "_WelcomeLayout";
+    int count = 1;
+}
+<body>
+
+    <div class="container mt-5 text-center">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-1">@ViewBag.Username</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container px-5 mt-5">
+            <form  method="post" action ="/UserInterface/SearchCodeBase">
+        <div class="input-group mb-3">
+            <a href=""><button type="submit" class="btn btn-dark" id="searchbutton">Search</button></a>
+            <input type="text" class="form-control" id="searchInput" placeholder="Input the name you want to search in CodeBase.." aria-label="Default" aria-describedby="inputGroup-sizing-default" name="fileName">
+        </div>
+            </form>
+    </div>
+
+    <div class="container px-5 mt-5">
+        <table class="table" id="tableEditor">
+            <thead class="text-light" style="background-color: black;">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code Name</th>
+                    <th scope="col">Access</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var codebase in @Model)
+                {
+                    <tr>
+                        <th scope="row">@count</th>
+                        @{
+                            count++;
+                        }
+                        <td>@codebase.Name</td>
+                        <td>
+                            <a href="@Url.Action("CodeBaseEditor", "UserInterface", new {dbId = @codebase.Id})">
+                                <button type="button" class="btn btn-success">
+                                    Open/Edit
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="container px-5 my-5">
+        <a class="text-light" href="@Url.Action("CodeBaseEditor", "UserInterface", new {dbId = -1})" style="text-decoration: none;">
+            <button type="button" class="btn btn-success btn-lg text-light">
+                Add<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                </svg>
+            </button>
+        </a>
+    </div>
+
+    <script>
+            //$("#searchbutton").click(function (event) {
+            //    event.preventDefault();
+            //    var fileName = $("#searchInput").val();
+            //    searchFile(fileName);
+            //});
+
+            //function searchFile(fileName) {
+            //    $.ajax({
+            //        url: '@Url.Action("SearchCodebase", "UserInterface")',
+            //        type: 'POST',
+            //        data: { fileName: fileName},
+            //        success: function (result) {
+            //            alert('Yes');
+            //            $("#searchResults").html(result);
+            //        },
+            //        error: function (error) {
+            //            alert("An error occurred while searching the file.");
+            //        }
+            //    });
+            //}
+    </script>
+
+</body>
+

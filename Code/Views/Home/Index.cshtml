@@ -1,0 +1,274 @@
+﻿@{
+    Layout = "_IndexLayout";
+}
+<body>
+    <!-- Alert if same email exist-->
+    @if (!string.IsNullOrEmpty(Model))
+    {
+            <div id="alertDiv" class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                <strong>@Model</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <script>
+                setTimeout(function () {
+                    document.getElementById('alertDiv').style.display = 'none';
+                }, 2000); // Hide the alert after 5 seconds (5000 milliseconds)
+            </script>
+    }
+
+    <!--Show message on Logout-->
+    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+    {
+        <div id="alertDiv" class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            <strong>@TempData["Message"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                document.getElementById('alertDiv').style.display = 'none';
+            }, 2000); // Hide the alert after 5 seconds (5000 milliseconds)
+        </script>
+    }
+
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/IntroPage.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption top-0 mt-5 d-none d-md-block">
+                    <a href="@Url.Action("LogIn", "Home")">
+                        <button type="button" class="btn btn-success btn-lg px-4 py-2 fs-20 mt-5">
+                            Get Started
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/CompilerPage.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption top-0 d-none d-md-block">
+                    <a href="@Url.Action("LogIn", "Home")">
+                        <button type="button" class="btn btn-success btn-lg px-4 py-2 fs-20 mt-5">
+                            Get Started
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/CodebaseImg.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <a href="@Url.Action("LogIn", "Home")">
+                        <button type="button" class="btn btn-success btn-lg px-4 py-2 fs-20 mt-5">
+                            Get Started
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/ProblemSolving.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <a href="@Url.Action("LogIn", "Home")">
+                        <button type="button" class="btn btn-success btn-lg px-4 py-2 fs-20 mt-5">
+                            Get Started
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container text-center my-5" id="scrollAbout">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-2">About Us</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SignUp Partial View-->
+    <div>
+        <partial name ="_SignUpPartialView"/>
+    </div> 
+
+
+    <div class="container my-4">
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+                <h2 class="featurette-heading"><span class="text-muted">Module 1 -</span> Compiler</h2>
+                <p class="lead">
+                    Welcome to our website! We are excited to announce that we have just launched our new
+                    platform, which includes a module dedicated to a mini compiler.
+                    With our mini compiler, you can write, compile, and run your C++ and Python code online.
+                    Whether you are a beginner or an experienced programmer, our mini compiler makes it easy for you to
+                    write and test your code without having to download any software on your computer.
+            </div>
+            <div class="col-md-5">
+                <img class="img-fluid" src="~/images/compilerImage.jpg" alt="">
+
+            </div>
+        </div>
+        <div class="row featurette d-flex justify-content-center align-items-center my-4">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading"><span class="text-muted">Module 2 -</span> CodeBase</h2>
+                <p class="lead">
+                    Our website will feature a robust Module 2, which is focused on code organization and
+                    management.
+                    With our innovative codebase functionality, users can easily save and categorize your code snippets
+                    for easy access and retrieval later on.
+                    Our codebase is designed to function like a database, so you can quickly search through your saved
+                    code snippets using simple, intuitive search terms.
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="img-fluid" src="~/images/codebase.jpg" alt="">
+            </div>
+        </div>
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">
+                    <span class="text-muted">Module 3 -</span> Problem Solving
+                </h2>
+                <p class="lead">
+                    Our website's module 3 is all about a problem-solving platform,
+                    which will allow users to hone their programming skills in C++ and Python.
+                    With a wide range of problems and challenges,
+                    users can tackle real-world programming problems and practice algorithmic thinking to improve their
+                    skills.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="img-fluid" src="~/images/problems.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Team -->
+    <section id="scrollteam" class="pb-5">
+        <div class="container">
+            <h5 class="section-title h1">OUR TEAM</h5>
+            <div class="row">
+                <!-- Team member -->
+                <div class="col-md-6">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="~/images/wish.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Shahryar Bin Talib</h4>
+                                        <p class="card-text">BCSF20M041</p>
+                                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Shahryar Bin Talib</h4>
+                                        <p class="card-text">Loves to see Lionel Messi play, hobbies like sleeping and definitely appreciates good memes</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/shahryar.talib/">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/shahryar.talib/">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/shahryar.talib/">
+                                                    <i class="fa fa-skype"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/shahryar.talib/">
+                                                    <i class="fa fa-google"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team member -->
+                <div class="col-md-6">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="~/images/wisha.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Wisha Eman</h4>
+                                        <p class="card-text">BCSF20M035</p>
+                                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Wisha Eman</h4>
+                                        <p class="card-text">Loves to sleep as well but surfing the internet is a must thing and definitely not edgy.</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/wishaa._/">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/wishaa._/">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/wishaa._/">
+                                                    <i class="fa fa-skype"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/wishaa._/">
+                                                    <i class="fa fa-google"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+

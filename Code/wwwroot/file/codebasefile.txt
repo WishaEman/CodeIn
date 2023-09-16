@@ -1,0 +1,116 @@
+[3]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "hi";
+	return 0;
+}]
+-----
+[4]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Shahryar is an intelligent boy";
+	return 0;
+}]
+-----
+[1002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "yas";
+    return 0;
+}]
+-----
+[2002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "I love Fifa";
+    cout << "Fifa is She";
+	return 0;
+}]
+-----
+[3002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+	return 0;
+}]
+-----
+[4002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+	return 0;
+}]
+-----
+[4004]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "hi";
+	return 0;
+}]
+-----
+[4005]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "hi";
+	return 0;
+}]
+-----
+[5002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Hello Faiqa";
+	return 0;
+}]
+-----
+[6002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+	return 0;
+}]
+-----
+[7002]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "Last evaluation";
+    cout << "July 12, 2023";
+	return 0;
+}]
+-----
+[8004]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    hiiiiiiiiiiiiiiiiiiiii;
+	return 0;
+}]
+-----
+[9004]
+[#include <iostream>
+using namespace std;
+int main()
+{
+    cout << "hi";
+	return 0;
+}]
+-----

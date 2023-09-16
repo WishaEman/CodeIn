@@ -1,0 +1,198 @@
+﻿@model Code.Models.Problem
+@{
+    Layout = "_CodeEditorLayout";
+}
+
+
+<style>
+    #editor {
+        width: 100%;
+        height: 500px;
+    }
+
+    #outputEditor {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<body>
+    <div class="container my-5 py-1 text-center"
+        style="box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); color:white;  font-family: scp; background-color: #1ba94c;">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">@ViewBag.problemName</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container py-3" style="box-shadow: 0 15px 18px rgba(0, 0, 0, 0.25);">
+        <p class="my-5 mx-3" style="font-size:larger;">
+            <strong class="display-6">Statement:</strong>
+            <br><br>
+            @{
+                string s = Model.statement.Replace(Environment.NewLine, "<br>");
+            }
+            @Html.Raw(s)
+            <br><br>
+            <strong class="display-6">Function Description:</strong>
+            <br><br>
+            @{
+                string d = Model.description.Replace(Environment.NewLine, "<br>");
+            }
+            @Html.Raw(d)
+            <br><br>
+            <strong class="display-6">Returns:</strong>
+            <br><br>
+            @{
+                string r = Model.returns.Replace(Environment.NewLine, "<br>");
+            }
+            @Html.Raw(r)
+        </p>
+        <div class="container mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body bg-light">
+                            <h5 class="card-title">Sample Input</h5>
+                            <p class="card-text" id="inputValue">
+                                @{
+                                    string i = Model.input.Replace(Environment.NewLine, "<br>");
+                                }
+                                @Html.Raw(i)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body bg-light">
+                            <h5 class="card-title">Sample Output</h5>
+                            <p class="card-text">
+                                @{
+                                    string o = Model.output.Replace(Environment.NewLine, "<br>");
+                                }
+                                @Html.Raw(o)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-2 bg-light text-center">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Language
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-mode="cpp">C++</a>
+                        <a class="dropdown-item" href="#" data-mode="python">Python</a>
+                    </div>
+                    <button id="copyButton" type="button" class="btn btn-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg> Copy
+                    </button>
+
+                    <a href=""><button type="button" id="runCode" class="btn btn-success">Run</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="editor"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="outputEditor" style="color: white"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        // Ajax
+
+        $("#runCode").click(function (event) {
+            event.preventDefault();
+            executeFile(editor.getValue(), $('inputValue').val());
+        });
+        function executeFile(code, inp) {
+            $.ajax({
+                url: '@Url.Action("CheckOutput", "UserInterface")',
+                type: 'POST',
+                data: {content: code, lang: language, input: inp },
+                success: function (response) {
+                      if (response.success)
+                      {
+                          window.location.href = '@Url.Action("ProblemSolving", "UserInterface", new {solved=true})';
+                      }
+                      else
+                      {
+                          var res = "Output:\n";
+                          outputEditor.setValue(res);
+                          outputEditor.insert(res + "Wrong output!");
+                      }
+                },
+                error: function () {
+                    alert("An error occurred while executing the file.");
+                }
+            });
+        }
+
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/c_cpp");
+        var language = "cpp";
+        editor.insert("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+        var outputEditor = ace.edit("outputEditor");
+        outputEditor.setTheme("ace/theme/monokai");
+        outputEditor.setReadOnly(true);
+        outputEditor.session.setMode("ace/mode/c_cpp");
+        outputEditor.insert("Output:\n");
+
+        // Handle the dropdown item selection
+        $('.dropdown-item').click(function (e) {
+            e.preventDefault();
+            language = $(this).data('mode');
+
+            // Change the mode (language) based on the selected mode
+            switch (language) {
+                case 'python':
+                    editor.getSession().setMode("ace/mode/python"); // Set the Python mode
+                    editor.setValue("print('Hello World')");
+                    break;
+                case 'cpp':
+                    editor.getSession().setMode("ace/mode/c_cpp"); // Set the C++ mode
+                    editor.setValue("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+                    break;
+                default:
+                    editor.getSession().setMode("ace/mode/text"); // Set a default mode if necessary
+                    break;
+            }
+        });
+
+        var copyButton = document.getElementById("copyButton");
+        copyButton.addEventListener("click", copyToClipboard);
+        function copyToClipboard() {
+            var editor = ace.edit("editor");
+            var text = editor.getValue();
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("Text copied to clipboard");
+                })
+                .catch(function (error) {
+                    alert("Error copying text to clipboard:", error);
+                });
+        }
+    </script>
+</body>
+

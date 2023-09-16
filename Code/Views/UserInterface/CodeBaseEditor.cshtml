@@ -1,0 +1,161 @@
+﻿@{
+    Layout = "_CodeEditorLayout";
+    var y = "Welcome to CodeBase Editor";
+    ViewBag.z = "Here you can edit and save your code in Codebase";
+}
+<style>
+    #editor {
+        width: 100%;
+        height: 500px;
+    }
+
+    #output {
+        width: 100%;
+        height: 500px;
+    }
+
+    @@font-face {
+        font-family: 'scp';
+        src: url('scp.ttf');
+    }
+
+    #outputEditor {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+<body>
+    <div>
+        <partial name ="_PartialView" model = "y" />
+    </div> 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-2 bg-light text-center">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Language
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-mode ="cpp">C++</a>
+                        <a class="dropdown-item" href="#" data-mode ="python">Python</a>
+                    </div>
+                    <button id="copyButton" type="button" class="btn btn-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                        </svg> Copy
+                    </button>
+
+                    <a href=""><button type="button" class="btn btn-success" id="saveButton">Save changes</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Save File-->
+    @if (!string.IsNullOrEmpty(ViewBag.name as string))
+    {
+        <div class="container mt-2 text-center">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-">@ViewBag.name</h1>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container" style="display: flex; justify-content: center; align-items: center; height: 10vh;">
+            <div class="input-group" style="width: 250px">
+                <input type="text" class="form-control" id="fileName" placeholder="Enter file name" required />
+            </div>
+        </div>
+    }
+   
+    
+
+    <div class="container">
+        <div id="editor" style="width:100%;"></div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#saveButton").click(function () {
+                event.preventDefault();
+                var fileName = $("#fileName").val();
+                saveFile(fileName, editor.getValue());
+            });
+
+            function saveFile(fileName, code) {
+                $.ajax({
+                    url: '@Url.Action("SaveFile", "UserInterface")',
+                    type: 'POST',
+                    data: { fileName: fileName, code: editor.getValue() },
+                    success: function (result) {
+                        if (result.exists) {
+                            alert("A file with the same name already exists. Please enter a different name.");
+                        } else {
+                            // File saved successfully
+                            alert("File saved!");
+                        }
+                    },
+                    error: function (error) {
+                        alert("An error occurred while saving the file.");
+                    }
+                });
+            }
+        });
+    
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/c_cpp");
+        var language = "cpp";
+        var con = @Json.Serialize(Model)
+        @if (!string.IsNullOrEmpty(ViewBag.name as string))
+        {
+            @:editor.setValue(con);
+        }
+        else
+        {
+            @:editor.insert("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+        }
+        $('.dropdown-item').click(function (e) {
+            e.preventDefault();
+            language = $(this).data('mode');
+
+            // Change the mode (language) based on the selected mode
+            switch (language) {
+                case 'python':
+                    editor.getSession().setMode("ace/mode/python"); // Set the Python mode
+                    editor.setValue("print('Hello World')");
+                    break;
+                case 'cpp':
+                    editor.getSession().setMode("ace/mode/c_cpp"); // Set the C++ mode
+                    editor.setValue("#include <iostream>\nusing namespace std;\nint main()\n{\n\treturn 0;\n}");
+                    break;
+                default:
+                    editor.getSession().setMode("ace/mode/text"); // Set a default mode if necessary
+                    break;
+            }
+        });
+        var copyButton = document.getElementById("copyButton");
+        copyButton.addEventListener("click", copyToClipboard);
+        function copyToClipboard() {
+            var editor = ace.edit("editor");
+            var text = editor.getValue();
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("Text copied to clipboard");
+                })
+                .catch(function (error) {
+                    alert("Error copying text to clipboard:", error);
+                });
+        }
+    </script>
+</body>
+

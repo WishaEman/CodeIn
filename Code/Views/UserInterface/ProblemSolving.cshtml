@@ -1,0 +1,104 @@
+﻿@model List<Code.Models.ProblemSolving>
+@{
+    Layout = "_WelcomeLayout";
+}
+
+<body>
+    
+    @if (ViewBag.check)
+    {
+        <div id="alertDiv" class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+            <strong>Congrats! Problem solved!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <script>
+            setTimeout(function () {
+                document.getElementById('alertDiv').style.display = 'none';
+            }, 2000); // Hide the alert after 5 seconds (5000 milliseconds)
+        </script>
+    }
+
+   <div class="container my-5 py-1 text-center"
+        style="box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); color:white;  font-family: scp; background-color: #1ba94c;">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-1">Problem Solving</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Functionality -->
+     <div class="container px-5 mt-5">
+            <form  method="post" action ="/UserInterface/SearchProblem">
+        <div class="input-group mb-3">
+            <a href=""><button type="submit" class="btn btn-dark" id="searchbutton">Search</button></a>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search problems based on types i.e arrays, strings etc.." aria-label="Default" aria-describedby="inputGroup-sizing-default" name="type">
+        </div>
+            </form>
+    </div>
+
+    @*<div class="container px-5 mt-5">
+        <div class="input-group mb-5">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Search</span>
+            </div>
+            <input type="text" class="form-control"
+                   placeholder="Search problems based on types i.e arrays, strings etc.." aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+    </div>*@
+
+    @foreach(var problem in @Model)
+    {
+        <div class="container">
+            <div class="row my-2">
+                <div class="col bg-light text-left">
+                    <h3 class="display-6">@problem.Name</h3>
+                    <h5 style="color:grey; font-style: italic; font-weight: normal;">@problem.Type</h5>
+                </div>
+                <div class="col bg-light text-end">
+                    <a class="" href="@Url.Action("ProblemSolvingEditor", "UserInterface", new {id = problem.Id})">
+                        <button type="button" class="my-4 btn btn-success" style="width:100px;">
+                            Solve
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+       @* <div class="row my-2">
+            <div class="col bg-light text-left">
+                <h3 class="display-6">Longest increasing subsequence</h3>
+                <h5 style="color:grey; font-style: italic; font-weight: normal;">Strings, Dynamic programming</h5>
+            </div>
+            <div class="col bg-light text-end">
+                <a class="" href="">
+                    <button type="button" class="my-2 btn btn-success" style="width:100px;">
+                        Solve
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col bg-light text-left">
+                <h3 class="display-6">Longest Palindrome</h3>
+                <h5 style="color:grey; font-style: italic; font-weight: normal;">Strings, Manacher's Algorithm</h5>
+            </div>
+            <div class="col bg-light text-end">
+                <a class="" href="">
+                    <button type="button" class="my-2 btn btn-success" style="width:100px;">
+                        Solve
+                    </button>
+                </a>
+            </div>
+        </div>*@
+
+    
+</body>

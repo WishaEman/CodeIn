@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "_LogInLayout";
+}
+<body>
+    <!-- Alert if same email exist-->
+    @if (!string.IsNullOrEmpty(Model))
+    {
+            <div id="alertDiv" class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                <strong>@Model</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <script>
+                setTimeout(function () {
+                    document.getElementById('alertDiv').style.display = 'none';
+                }, 5000); // Hide the alert after 5 seconds (5000 milliseconds)
+            </script>
+    }
+
+    <!-- Section: Design Block -->
+    <section class="background-radial-gradient overflow-hidden">
+        <style>
+            .background-radial-gradient {
+                background-color: hsl(218, 41%, 15%);
+                background-image: radial-gradient(650px circle at 0% 0%, hsl(218, 41%, 35%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(218, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%);
+            }
+
+            #radius-shape-1 {
+                height: 220px;
+                width: 220px;
+                top: -60px;
+                left: -130px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+            }
+
+            #radius-shape-2 {
+                border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+                bottom: -60px;
+                right: -110px;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(#44006b, #ad1fff);
+                overflow: hidden;
+            }
+
+            .bg-glass {
+                background-color: hsla(0, 0%, 100%, 0.9) !important;
+                backdrop-filter: saturate(200%) blur(25px);
+            }
+        </style>
+        @if (ViewBag.check)
+        {
+            <div id="alertDiv" class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                <strong>Sign up successful!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <div class="container px-1 py-1 px-md-5 text-center text-lg-start my-4">
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        {CodeIN'} <br />
+                        <span style="color: hsl(218, 81%, 75%)">Log In Your Account</span>
+                    </h1>
+                    <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+                        Welcome back!  Please sign in to your account to continue.
+                        If you don't have an account yet, you can easily create one by clicking the "Sign Up" button below.
+                        As a registered user, you'll have access to all of our site's features,
+                        Thanks for choosing our website, we're happy to have you!
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                    <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                    <div class="card bg-glass ">
+                        <div class="card-body p-3 text-center">
+
+                            <div class="mb-md-2 mt-md-1 pb-4">
+                                <form method="post" action="/Home/AuthorizeLogIn">
+                                    <div class="text-center">
+                                        <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                        <p class="text-black-50 mb-5">Please enter your login and password</p>
+                                    </div>
+
+                                    <!---To show in correct credentials---->
+
+                                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                                    {
+                                        <div class="alert alert-danger">
+                                            @ViewBag.ErrorMessage
+                                        </div>
+                                    }
+
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email" name="Email" />
+                                    </div>
+
+                                    <div class="form-outline  form-white mb-4">
+                                        <input type="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password" name="Password"/>
+                                    </div>
+
+
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary btn-block btn-dark mb-3 btn-lg px-4">
+                                        LOGIN
+                                    </button>
+
+                                    <div>
+                                        <p class="mb-0">
+                                            Don't have an account? <br><br>
+                                        </p>
+                                        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+    <!-- SignUp Partial View-->
+    <div>
+        <partial name ="_SignUpPartialView"/>
+    </div>
+
+
+</body>
